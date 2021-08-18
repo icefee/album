@@ -1,7 +1,8 @@
-import { h, ref, Ref, Transition, resolveDynamicComponent, defineComponent } from "vue"
+import { h, ref, Ref, Transition, resolveDynamicComponent, defineComponent, computed } from "vue"
 import { RouterLink, RouterView } from "vue-router"
+import { useStore } from 'vuex'
 import { NIcon, NLayout, NLayoutSider, NMenu, MenuOption, NDropdown, NButton, NDrawer, NDrawerContent, NModal } from 'naive-ui'
-import { Home, People, PersonOutline, ChevronDown, LockClosedOutline, ExitOutline } from '@vicons/ionicons5'
+import { Home, People, PersonOutline, ChevronDown, LockClosedOutline, ExitOutline, Map } from '@vicons/ionicons5'
 import './style.css'
 
 const menuOptions: MenuOption[] = [
@@ -10,6 +11,12 @@ const menuOptions: MenuOption[] = [
         key: 'home',
         to: '/home',
         icon: () => <NIcon><Home /></NIcon>
+    },
+    {
+        label: '地图',
+        key: 'map',
+        to: '/map',
+        icon: () =>　<NIcon><Map /></NIcon>
     },
     {
         label: '用户',
@@ -22,11 +29,13 @@ const menuOptions: MenuOption[] = [
 export default defineComponent({
     setup() {
         const collapsed: Ref<boolean> = ref(false);
+        const store = useStore();
         return {
             collapsed,
             showDrawer: ref(false),
             showModal: ref(false),
             menuOptions,
+            username: computed(() => store.state.username),
             renderMenuLabel(option: MenuOption) {
                 if ('to' in option) {
                     return (
@@ -85,7 +94,7 @@ export default defineComponent({
                         on-select={this.handleMenuSelect}
                     >
                         <NButton text>
-                            <span>admin</span>
+                            <span>{ this.username }</span>
                             <NIcon>
                                 <ChevronDown />
                             </NIcon>
@@ -129,7 +138,7 @@ export default defineComponent({
                     </NLayout>
                 </NLayout>
                 <NDrawer show={this.showDrawer} onUpdateShow={(_show: boolean) => this.showDrawer = _show} width={500} placement="right">
-                    <NDrawerContent title="admin" closable>
+                    <NDrawerContent title={ this.username } closable>
                         《斯通纳》是美国作家约翰·威廉姆斯在 1965 年出版的小说。
                     </NDrawerContent>
                 </NDrawer>

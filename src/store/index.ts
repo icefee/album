@@ -1,15 +1,35 @@
 import { createStore } from 'vuex'
-import { State } from './index.d'
 
-export default createStore<State>({
-    state() {
+declare interface Auth {
+    isAuth: boolean,
+    username: String | null
+}
+
+declare interface State extends Auth {}
+
+export default createStore({
+    state() : State {
         return {
-            auth: false,
+            isAuth: false,
+            username: null
         }
     },
     mutations: {
-        setAuth(state: State, auth: boolean) {
-            state.auth = auth;
+        setAuth(state: State, auth: Auth) {
+            state.isAuth = auth.isAuth;
+            state.username = auth.username;
+        }
+    },
+    actions: {
+        async login({ commit }, auth: Auth) {
+            return new Promise(
+                resolve => {
+                    setTimeout(() => {
+                        commit('setAuth', auth)
+                        resolve(0);
+                    }, 2000);
+                }
+            )
         }
     }
 })

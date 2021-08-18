@@ -37,6 +37,7 @@
 <script lang="tsx">
 import { defineComponent, Ref, ref } from "vue";
 import { NCard, NSpin, NForm, NFormItem, NInput, NButton } from "naive-ui";
+import { mapActions } from "vuex";
 
 export default defineComponent({
   components: {
@@ -73,19 +74,28 @@ export default defineComponent({
     };
   },
   methods: {
+    ...mapActions(['login']),
     handleLogin(e: Event) {
       e.preventDefault();
       ///
-      this.formRef?.validate((errors: any) => {
+      this.formRef?.validate(async (errors: any) => {
         if (!errors) {
-          this.requestLogin()
+          this.loading = true;
+          await this.login({
+            isAuth: true,
+            username: this.model.username
+          });
+          console.log(this.$store);
+          this.$router.push('/home');
+          // this.requestLogin()
         }
       });
     },
-    requestLogin() {
-      this.loading = true;
-      this.$router.push('/home');
-    }
+    // requestLogin() {
+    //   this.loading = true;
+    //   this.$store.commit('setAuth', {isAuth: true, username: this.model.username})
+    //   this.$router.push('/home');
+    // },
   },
 });
 </script>

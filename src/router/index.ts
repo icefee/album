@@ -4,6 +4,7 @@ import Login from '../views/Login/index.vue'
 import Index from '../views/Index'
 import Home from '../views/Home/index.vue'
 import User from '../views/User/index.vue'
+import Map from '../views/Map'
 
 export default createRouter({
     history: createWebHashHistory(),
@@ -22,11 +23,25 @@ export default createRouter({
                     path: '',
                     name: 'home',
                     component: Home,
+                    meta: {
+                        title: '主页'
+                    }
+                },
+                {
+                    path: 'map',
+                    name: 'map',
+                    component: Map,
+                    meta: {
+                        title: '地图'
+                    }
                 },
                 {
                     path: 'user',
                     name: 'user',
-                    component: User
+                    component: User,
+                    meta: {
+                        title: '用户'
+                    }
                 }
             ]
         }
