@@ -5,12 +5,14 @@
 </template>
 
 <script lang="tsx">
+import { defineComponent } from 'vue'
+
 const data: [number, number][] = Array.from({ length: 20 }).map((d, i) => [
   i,
   Math.random() * 3 + 10,
 ]);
 
-export default {
+export default defineComponent({
   setup() {
     return {
       series: [
@@ -83,5 +85,5 @@ export default {
       },
     };
   },
-};
+});
 </script>
