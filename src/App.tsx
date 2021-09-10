@@ -31,7 +31,7 @@ export default defineComponent({
   },
   render() {
     return (
-      <n-config-provider theme={this.theme}>
+      <NConfigProvider theme={this.theme}>
         <RouterView class="view child-view">
           {
             ({ Component, route }: { Component?: any, route: any }) => (
@@ -43,7 +43,7 @@ export default defineComponent({
             )
           }
         </RouterView>
-      </n-config-provider>
+      </NConfigProvider>
     )
   }
 })
