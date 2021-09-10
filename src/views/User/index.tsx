@@ -1,5 +1,9 @@
-import { h, defineComponent } from 'vue'
-import { VueApexCharts, ApexOptions } from 'vue3-apexcharts'
+import { h, defineComponent, DefineComponent } from 'vue'
+// @ts-ignore
+import VueApexCharts, { VueApexChartsComponent } from 'vue3-apexcharts'
+import { ApexOptions } from 'apexcharts'
+
+declare const VueApexCharts: DefineComponent<VueApexChartsComponent>;
 
 const data: [number, number][] = Array.from({ length: 20 }).map((d, i) => [
   i,
@@ -80,7 +84,6 @@ export default defineComponent({
     };
   },
   render() {
-    console.log(VueApexCharts)
     return (
       <div>
         <VueApexCharts width={800} type="line" options={this.options as ApexOptions} series={this.series} />
