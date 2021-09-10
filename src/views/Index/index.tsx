@@ -10,19 +10,19 @@ const menuOptions: MenuOption[] = [
         label: '主页',
         key: 'home',
         to: '/home',
-        icon: () => <NIcon><Home /></NIcon>
+        icon: () => <NIcon>{() => <Home />}</NIcon>
     },
     {
         label: '地图',
         key: 'map',
         to: '/map',
-        icon: () =>　<NIcon><Map /></NIcon>
+        icon: () => <NIcon>{() => <Map />}</NIcon>
     },
     {
         label: '用户',
         key: 'user',
         to: '/home/user',
-        icon: () => <NIcon><People /></NIcon>
+        icon: () => <NIcon>{() => <People />}</NIcon>
     }
 ];
 
@@ -40,7 +40,9 @@ export default defineComponent({
                 if ('to' in option) {
                     return (
                         <RouterLink to={{ name: option.key } as { name: string }}>
-                            {option.label}
+                            {
+                                () => option.label
+                            }
                         </RouterLink>
                     )
                 }
@@ -93,54 +95,80 @@ export default defineComponent({
                         trigger="click"
                         on-select={this.handleMenuSelect}
                     >
-                        <NButton text>
-                            <span>{ this.username }</span>
-                            <NIcon>
-                                <ChevronDown />
-                            </NIcon>
-                        </NButton>
+                        {
+                            () => (
+                                <NButton text>
+                                    {
+                                        () => [
+                                            <span>{this.username}</span>,
+                                            <NIcon>
+                                                {
+                                                    () => <ChevronDown />
+                                                }
+                                            </NIcon>
+                                        ]
+                                    }
+                                </NButton>
+                            )
+                        }
                     </NDropdown>
                 </div>
                 <NLayout style={{ height: '100%' }} has-sider>
-                    <NLayoutSider
-                        bordered
-                        collapse-mode="width"
-                        collapsed-width={64}
-                        width={200}
-                        collapsed={this.collapsed}
-                        show-trigger
-                        on-collapse={() => this.collapsed = true}
-                        on-expand={() => this.collapsed = false}
-                    >
-                        <NMenu
-                            collapsed={this.collapsed}
-                            collapsed-width={64}
-                            collapsed-icon-size={22}
-                            options={this.menuOptions}
-                            default-value={this.$route.name}
-                            render-label={this.renderMenuLabel}
-                        />
-                    </NLayoutSider>
-                    <NLayout>
-                        <div class="child-router">
-                            <RouterView class="view child-view">
+                    {
+                        () => [
+                            <NLayoutSider
+                                bordered
+                                collapse-mode="width"
+                                collapsed-width={64}
+                                width={200}
+                                collapsed={this.collapsed}
+                                show-trigger
+                                on-collapse={() => this.collapsed = true}
+                                on-expand={() => this.collapsed = false}
+                            >
                                 {
-                                    ({ Component, route }: { Component?: any, route: any }) => (
-                                        <Transition>
-                                            {
-                                                () => resolveDynamicComponent(Component)
-                                            }
-                                        </Transition>
+                                    () => (
+                                        <NMenu
+                                            collapsed={this.collapsed}
+                                            collapsed-width={64}
+                                            collapsed-icon-size={22}
+                                            options={this.menuOptions}
+                                            default-value={this.$route.name}
+                                            render-label={this.renderMenuLabel}
+                                        />
                                     )
                                 }
-                            </RouterView>
-                        </div>
-                    </NLayout>
+                            </NLayoutSider>,
+                            <NLayout>
+                                {
+                                    () => (
+                                        <div class="child-router">
+                                            <RouterView class="view child-view">
+                                                {
+                                                    ({ Component, route }: { Component?: any, route: any }) => (
+                                                        <Transition>
+                                                            {
+                                                                () => resolveDynamicComponent(Component)
+                                                            }
+                                                        </Transition>
+                                                    )
+                                                }
+                                            </RouterView>
+                                        </div>
+                                    )
+                                }
+                            </NLayout>
+                        ]
+                    }
                 </NLayout>
                 <NDrawer show={this.showDrawer} onUpdateShow={(_show: boolean) => this.showDrawer = _show} width={500} placement="right">
-                    <NDrawerContent title={ this.username } closable>
-                        《斯通纳》是美国作家约翰·威廉姆斯在 1965 年出版的小说。
-                    </NDrawerContent>
+                    {
+                        () => (
+                            <NDrawerContent title={this.username} closable>
+                                《斯通纳》是美国作家约翰·威廉姆斯在 1965 年出版的小说。
+                            </NDrawerContent>
+                        )
+                    }
                 </NDrawer>
                 <NModal
                     show={this.showModal}

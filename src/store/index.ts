@@ -5,10 +5,10 @@ declare interface Auth {
     username: String | null
 }
 
-declare interface State extends Auth {}
+declare interface State extends Auth { }
 
 export default createStore({
-    state() : State {
+    state(): State {
         return {
             isAuth: false,
             username: null

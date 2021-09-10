@@ -1,0 +1,39 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body,
+#app,
+.n-config-provider {
+    height: 100%;
+}
+
+#app {
+    position: relative;
+}
+
+.view {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden auto;
+}
+
+.child-router {
+    position: relative;
+    height: 100%;
+}
+
+.v-enter-active,
+.v-leave-active {
+    transition: all 0.4s ease-in-out;
+}
+
+.v-enter,
+.v-leave-to {
+    opacity: 0;
+}

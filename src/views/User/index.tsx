@@ -1,11 +1,5 @@
-<template>
-  <div>
-    <apexchart :width="800" type="line" :options="options" :series="series" />
-  </div>
-</template>
-
-<script lang="tsx">
-import { defineComponent } from 'vue'
+import { h, defineComponent } from 'vue'
+import { VueApexCharts, ApexOptions } from 'vue3-apexcharts'
 
 const data: [number, number][] = Array.from({ length: 20 }).map((d, i) => [
   i,
@@ -85,5 +79,12 @@ export default defineComponent({
       },
     };
   },
-});
-</script>
+  render() {
+    console.log(VueApexCharts)
+    return (
+      <div>
+        <VueApexCharts width={800} type="line" options={this.options as ApexOptions} series={this.series} />
+      </div>
+    )
+  }
+})

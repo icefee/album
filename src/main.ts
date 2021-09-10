@@ -1,13 +1,11 @@
 import { createApp } from 'vue'
-import VueApexCharts from 'vue3-apexcharts'
-import App from './App.vue'
+import App from './App'
 import router from './router'
 import store from './store'
+import { createPinia } from 'pinia'
 
 const app = createApp(App);
 app.use(router);
 app.use(store);
-
-app.use(VueApexCharts);
-
+app.use(createPinia());
 app.mount('#app')

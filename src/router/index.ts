@@ -1,9 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-
-import Login from '../views/Login/index.vue'
+import Login from '../views/Login'
 import Index from '../views/Index'
-import Home from '../views/Home/index.vue'
-import User from '../views/User/index.vue'
+import Home from '../views/Home'
+import User from '../views/User'
 import Map from '../views/Map'
 
 export default createRouter({

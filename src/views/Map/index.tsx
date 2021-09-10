@@ -5,7 +5,7 @@ import * as map from '../../tools/map/baidu'
 export default defineComponent({
     render() {
         return(
-            <div id="map"></div>
+            <div id="map" />
         )
     },
     setup() {
