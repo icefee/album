@@ -4,14 +4,6 @@ import { mapActions } from 'vuex'
 import './login.css'
 
 export default defineComponent({
-  components: {
-    NCard,
-    NSpin,
-    NForm,
-    NFormItem,
-    NInput,
-    NButton,
-  },
   data: () => ({
     loading: false,
   }),
