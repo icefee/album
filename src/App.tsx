@@ -1,6 +1,6 @@
-import { h, Transition, resolveDynamicComponent, defineComponent, ref, Ref } from "vue"
-import { RouterView } from "vue-router"
-import { NConfigProvider, darkTheme } from "naive-ui"
+import { h, Transition, resolveDynamicComponent, defineComponent, ref } from 'vue'
+import { RouterView } from 'vue-router'
+import { NConfigProvider, darkTheme, GlobalTheme } from 'naive-ui'
 import './App.css'
 
 /*
@@ -22,11 +22,14 @@ export interface Photo {
 }
 */
 
-export default defineComponent({
+export default defineComponent<{
+  darkTheme: GlobalTheme,
+  theme: GlobalTheme
+}>({
   setup() {
     return {
       darkTheme,
-      theme: ref<any>(null) as Ref<any>,
+      theme: ref<GlobalTheme>(),
     };
   },
   render() {

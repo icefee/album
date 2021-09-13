@@ -3,7 +3,9 @@ import { NCard, NSpin, NForm, NFormItem, NInput, NButton } from 'naive-ui'
 import { mapActions } from 'vuex'
 import './login.css'
 
-export default defineComponent({
+export default defineComponent<{
+  loading: boolean
+}>({
   data: () => ({
     loading: false,
   }),
