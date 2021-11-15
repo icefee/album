@@ -1,5 +1,8 @@
 <template>
-    <User v-slot:default="{ isLogin }">{{ isLogin ? '已登录' : '未登录' }}</User>
+    <User v-slot:default="{ isLogin, setLoginState }">
+        <p>状态: {{ isLogin ? '已登录' : '未登录' }}</p>
+        <button @click="setLoginState(!isLogin)">切换</button>
+    </User>
 </template>
 
 <script lang="ts">
