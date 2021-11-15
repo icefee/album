@@ -14,4 +14,4 @@ export default defineComponent({
         User: Consumer.slot
     }
 })
-</script>>
+</script>
