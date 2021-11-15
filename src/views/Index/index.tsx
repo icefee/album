@@ -4,6 +4,7 @@ import { useStore } from 'vuex'
 import { NIcon, NLayout, NLayoutSider, NMenu, MenuOption, NDropdown, NButton, NDrawer, NDrawerContent, NModal } from 'naive-ui'
 import { Home, People, PersonOutline, ChevronDown, LockClosedOutline, ExitOutline, Map } from '@vicons/ionicons5'
 import './style.css'
+import { Auth, Consumer, WithAuthMixin } from '../../mixins/auth'
 
 const menuOptions: MenuOption[] = [
     {
@@ -26,7 +27,23 @@ const menuOptions: MenuOption[] = [
     }
 ];
 
-export default defineComponent({
+const User = WithAuthMixin({
+    created() {
+        console.log(this.isLogin)
+    }
+})
+
+export default defineComponent<{
+    isLogin: Ref<Auth['isLogin']>,
+    setLoginState: Auth['setLoginState'],
+    collapsed: boolean,
+    showDrawer: boolean,
+    showModal: boolean,
+    username: string,
+    menuOptions: MenuOption[],
+    renderMenuLabel: (T: MenuOption) => string,
+    handleMenuSelect: (T: string) => void
+}>({
     setup() {
         const collapsed: Ref<boolean> = ref(false);
         const store = useStore();
@@ -50,14 +67,18 @@ export default defineComponent({
             },
         }
     },
+    inject: ['isLogin', 'setLoginState'],
     methods: {
         handleMenuSelect(key: string) {
-            const callMap: any = {
-                exit: () => this.$router.replace('/'),
+            const callMap: { [key: string]: () => void } = {
+                exit: () => {
+                    // this.$router.replace('/')
+                    this.setLoginState(!this.isLogin.value);
+                },
                 detail: () => this.showDrawer = true,
                 mod_pwd: () => this.showModal = true,
             }
-            callMap[key]?.call();
+            callMap[key]?.call(this);
         }
     },
     render() {
@@ -67,6 +88,7 @@ export default defineComponent({
                     <div class="logo">
                         <img width={25} src="https://www.naiveui.com/assets/naivelogo.93278402.svg" />
                     </div>
+                    <span>state: {this.isLogin.value ? 1 : 0}</span>
                     <NDropdown
                         options={
                             [
@@ -179,7 +201,14 @@ export default defineComponent({
                     positive-text="确认"
                     negative-text="算了"
                 />
-            </div >
+                <Consumer.slot>
+                    {
+                        ({ isLogin, setLoginState } : Auth) => (
+                            <button onClick={ (e: MouseEvent) => setLoginState(!isLogin) }>{ isLogin ? '退出' : '登录' }</button>
+                        )
+                    }
+                </Consumer.slot>
+            </div>
         )
     }
 })

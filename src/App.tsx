@@ -1,7 +1,8 @@
-import { h, Transition, resolveDynamicComponent, defineComponent, ref } from 'vue'
+import { h, Transition, resolveDynamicComponent, defineComponent, computed, Ref, ref } from 'vue'
 import { RouterView } from 'vue-router'
 import { NConfigProvider, darkTheme, GlobalTheme } from 'naive-ui'
 import './App.css'
+import AuthMixin from './mixins/auth'
 
 /*
 export interface ApiResponse {
@@ -29,9 +30,10 @@ export default defineComponent<{
   setup() {
     return {
       darkTheme,
-      theme: ref<GlobalTheme>(),
+      theme: ref<GlobalTheme>()
     };
   },
+  mixins: [AuthMixin],
   render() {
     return (
       <NConfigProvider theme={this.theme}>
