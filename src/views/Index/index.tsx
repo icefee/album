@@ -33,6 +33,29 @@ const User = WithAuthMixin({
     }
 })
 
+interface UserTest<T> {
+    name: string,
+    params: T
+}
+
+export interface Test {
+    new<T>(): UserTest<T>
+}
+
+function setUser(Call: Test) : UserTest<Test> {
+    return new Call<Test>();
+}
+
+class Call<T> {
+    name: string;
+    params: T;
+
+    constructor(p: T) {
+        this.name = 'hello';
+        this.params = p;
+    }
+}
+
 export default defineComponent<{
     isLogin: Ref<Auth['isLogin']>,
     setLoginState: Auth['setLoginState'],

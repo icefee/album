@@ -11,8 +11,8 @@
           "
         >
           <NForm
-            model="model"
-            rules="rules"
+            :model="model"
+            :rules="rules"
             ref="formRef"
             label-placement="left"
             :label-width="80"

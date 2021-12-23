@@ -57,3 +57,24 @@ export {
     Consumer,
     WithAuthMixin,
 }
+
+/*
+type User = {
+    name: string;
+    address: string;
+    age: number;
+    sex: 'male' | 'female'
+}
+
+const user: User = {
+    name: 'Tom',
+    address: 'tc12',
+    age: 23,
+    sex: 'male'
+}
+
+function setUser(key: 'name' | 'address'): void {
+    const newUser = { ...user };
+    newUser[key] = '';
+}
+*/
